@@ -13,7 +13,6 @@ CREATE TABLE greenspace_id_name (
 CREATE TABLE greenspace_id_name_carbon_result (
     greenspace_id VARCHAR2(100) PRIMARY KEY,
     carbon_stock_kg_carbon   NUMBER CHECK (carbon_stock_kg_carbon >= 0),
-    method_note   VARCHAR2(500),
     CONSTRAINT cgs_demo_carbon_site_fk
         FOREIGN KEY (greenspace_id)
         REFERENCES greenspace_id_name (greenspace_id)
@@ -31,7 +30,7 @@ VALUES ('GS01', 2500);
 COMMIT;
 
 SELECT gs.greenspace_id, gs.site_name, gs.site_type,
-       carbon.carbon_stock_kg_carbon, carbon.method_note
+       carbon.carbon_stock_kg_carbon
 FROM greenspace_id_name gs
 LEFT JOIN greenspace_id_name_carbon_result carbon
     ON gs.greenspace_id = carbon.greenspace_id
