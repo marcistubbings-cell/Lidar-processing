@@ -1,0 +1,38 @@
+-- This is how a greenspace can be linked to a carbon result
+
+SELECT table_name FROM user_tables
+WHERE table_name IN ('GREENSPACE_ID_NAME', 'GREENSPACE_ID_NAME_CARBON_RESULT')
+ORDER BY table_name;
+
+CREATE TABLE greenspace_id_name (
+    greenspace_id VARCHAR2(100) PRIMARY KEY,
+    site_name     VARCHAR2(150),
+    site_type     VARCHAR2(100)
+);
+
+CREATE TABLE greenspace_id_name_carbon_result (
+    greenspace_id VARCHAR2(100) PRIMARY KEY,
+    carbon_stock_kg_carbon   NUMBER CHECK (carbon_stock_kg_carbon >= 0),
+    method_note   VARCHAR2(500),
+    CONSTRAINT cgs_demo_carbon_site_fk
+        FOREIGN KEY (greenspace_id)
+        REFERENCES greenspace_id_name (greenspace_id)
+);
+
+INSERT INTO greenspace_id_name (greenspace_id, site_name, site_type)
+VALUES ('TEST_GS001', 'Greenspace A', 'Public park');
+
+INSERT INTO greenspace_id_name (greenspace_id, site_name, site_type)
+VALUES ('TEST_GS002', 'Greenspace B', 'Public park');
+
+INSERT INTO greenspace_id_name_carbon_result (greenspace_id, carbon_stock_kg_carbon, method_note)
+VALUES ('TEST_GS001', 2500, 'Fictional test value; not a carbon estimate');
+
+COMMIT;
+
+SELECT gs.greenspace_id, gs.site_name, gs.site_type,
+       carbon.carbon_stock_kg_carbon, carbon.method_note
+FROM greenspace_id_name gs
+LEFT JOIN greenspace_id_name_carbon_result carbon
+    ON gs.greenspace_id = carbon.greenspace_id
+ORDER BY gs.greenspace_id;
