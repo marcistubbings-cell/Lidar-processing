@@ -1,4 +1,4 @@
--- This is how a greenspace can be linked to a carbon result
+-- This is how a greenspace (GRENSPACE_ID, SITE_NAME, SITE_TYPE) can be linked to a carbon result (CARBON_STOCK_KG_CARBON)
 
 SELECT table_name FROM user_tables
 WHERE table_name IN ('GREENSPACE_ID_NAME', 'GREENSPACE_ID_NAME_CARBON_RESULT')
