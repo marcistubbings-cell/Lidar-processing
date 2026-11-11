@@ -20,13 +20,13 @@ CREATE TABLE greenspace_id_name_carbon_result (
 );
 
 INSERT INTO greenspace_id_name (greenspace_id, site_name, site_type)
-VALUES ('TEST_GS001', 'Greenspace A', 'Public park');
+VALUES ('TEST_GS01', 'Greenspace A', 'Public park');
 
 INSERT INTO greenspace_id_name (greenspace_id, site_name, site_type)
-VALUES ('TEST_GS002', 'Greenspace B', 'Public park');
+VALUES ('TEST_GS02', 'Greenspace B', 'Public park');
 
 INSERT INTO greenspace_id_name_carbon_result (greenspace_id, carbon_stock_kg_carbon, method_note)
-VALUES ('TEST_GS001', 2500, 'Fictional test value; not a carbon estimate');
+VALUES ('TEST_GS01', 2500);
 
 COMMIT;
 
